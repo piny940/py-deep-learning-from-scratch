@@ -2,7 +2,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import sys
-sys.path.append('/Users/ansai/Documents/VScode/deep-learning')
+sys.path.append('/Users/ansai/Documents/VScode/deep-learning/deep-learning-from-scratch')
 from dataset import spiral
 
 class Sigmoid:

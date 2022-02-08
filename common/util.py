@@ -86,3 +86,15 @@ def print_similar_words(query, word_to_id, id_to_word, word_matrix, top=5):
         count += 1
         if count >= top:
             return
+
+def get_contexts_target(corpus, window_size=1):
+    target = corpus[window_size:len(corpus) - window_size]
+    contexts = []
+    for idx in target:
+        c = []
+        for j in range(-window_size, window_size+1):
+            if j == 0:
+                continue
+            c.append(corpus[idx + j])
+        contexts.append(c)
+    return np.array(contexts), np.array(target)

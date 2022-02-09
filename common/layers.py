@@ -1,5 +1,5 @@
 # coding: utf-8
-from functions import softmax, cross_entropy_error
+from .functions import softmax, cross_entropy_error
 import numpy as np
 
 

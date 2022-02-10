@@ -143,3 +143,25 @@ class Embedding:
         dW[...] = 0
         np.add.at(dW, self.idx, dout)
         return None
+
+class EmbeddingDot:
+    def __init__(self, W):
+        self.embed = Embedding(W)
+        self.params = [W]
+        self.grads = []
+        self.cache = None
+    
+    def forward(self, h, idx):
+        w_target = self.embed.forward(idx)
+        self.cache = (h, w_target)
+        
+        return np.sum(w_target * h, axis=1)
+    
+    def backward(self, dout):
+        h, target_w = self.cache
+        dout = dout.reshape(dout.shape[0], 1)
+        dtarget_w = dout * h
+        self.embed.backward(dtarget_w)
+        
+        dh = dout * target_w
+        return dh

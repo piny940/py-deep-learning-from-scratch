@@ -1,6 +1,6 @@
 # coding: utf-8
-import sys
-sys.path.append('/Users/ansai/Documents/VScode/deep-learning/deep-learning-from-scratch')
+import os, sys
+sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 import numpy as np
 from common.layers import MatMul, SoftmaxWithLoss
 

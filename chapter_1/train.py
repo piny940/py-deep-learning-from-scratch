@@ -1,6 +1,6 @@
 # coding: utf-8
-import sys
-sys.path.append('/Users/ansai/Documents/VScode/deep-learning/deep-learning-from-scratch')  # 親ディレクトリのファイルをインポートするための設定
+import os, sys
+sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 from common.optimizer import SGD
 from common.trainer import Trainer
 from dataset import spiral

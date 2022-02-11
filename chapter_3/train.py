@@ -1,11 +1,10 @@
-from pyexpat import model
-from simple_cbow import SimpleCBOW
-import sys
-sys.path.append('/Users/ansai/Documents/VScode/deep-learning/deep-learning-from-scratch')
+import os, sys
+sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 import numpy as np
 from common.util import processor, get_contexts_target, convert_one_hot
 from common.trainer import Trainer
 from common.optimizer import Adam
+from simple_cbow import SimpleCBOW
 
 
 text = 'You say goodbye and I say hello.'

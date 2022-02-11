@@ -1,7 +1,7 @@
-import sys
-sys.path.append('/Users/ansai/Documents/VScode/deep-learning/deep-learning-from-scratch')
+import os, sys
+sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 import numpy as np
-from common import layers as Layers
+from common.layers import MatMul, SoftmaxWithLoss
 
 
 class SimpleCBOW:
@@ -11,10 +11,10 @@ class SimpleCBOW:
         w_in = 0.01 * np.random.randn(v, h).astype('f')
         w_out = 0.01 * np.random.randn(h, v).astype('f')
         
-        self.in_layer0 = Layers.MatMul(w_in)
-        self.in_layer1 = Layers.MatMul(w_in)
-        self.out_layer = Layers.MatMul(w_out)
-        self.loss_layer = Layers.SoftmaxWithLoss()
+        self.in_layer0 = MatMul(w_in)
+        self.in_layer1 = MatMul(w_in)
+        self.out_layer = MatMul(w_out)
+        self.loss_layer = SoftmaxWithLoss()
         
         layers = [
             self.in_layer0,

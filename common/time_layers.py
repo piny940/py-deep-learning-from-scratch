@@ -66,4 +66,25 @@ class TimeRNN:
             self.layers.append(layer)
         
         return hs
+
+    def backward(self, dhs):
+        Wx, Wh, b = self.params
+        N, T, H = dhs.shape
+        D, H = Wx.shape
+        
+        dxs = np.empty((N, T, H), dtype='f')
+        dh = 0
+        grads = [0, 0, 0]
+        for t in reversed(range(T)):
+            layer = self.layers[t]
+            dx, dh = layer.backward(dhs[:, t, :] + dh)
+            dxs[:, t, :] = dx
+
+            for i, grad in enumerate(layer.grads):
+                grads[i] += grad
             
+        for i, grad in enumerate(grads):
+            self.grads[i][...] = grad
+        self.dh = dh
+
+        return dxs

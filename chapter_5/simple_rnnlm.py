@@ -30,3 +30,20 @@ class SimpleRNNLm:
         for layer in self.layers:
             self.params += layer.params
             self.grads += layer.grads
+    
+    def forward(self, xs, ts):
+        for layer in self.layers:
+            xs = layer.forward(xs)
+        
+        loss = self.loss_layer.forward(xs, ts)
+        return loss
+    
+    def backward(self, dout=1):
+        dout = self.loss_layer.backward(dout)
+        
+        for layer in reversed(self.layers):
+            dout = layer.backward(dout)
+        return dout
+    
+    def reset_state(self):
+        self.rnn_layer.reset_state()

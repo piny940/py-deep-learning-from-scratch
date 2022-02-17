@@ -1,5 +1,6 @@
 import numpy as np
 from common.functions import softmax, sigmoid
+from common.layers import Embedding
 
 
 class RNN:

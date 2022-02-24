@@ -4,7 +4,6 @@ sys.path.append('..')
 import os
 import pickle
 import numpy as np
-from common.util import to_gpu, to_cpu
 
 
 class BaseModel:

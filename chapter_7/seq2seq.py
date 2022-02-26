@@ -72,7 +72,7 @@ class Decoder:
         dout = self.lstm.backward(dout)
         dout = self.embed.backward(dout)
         
-        dh = self.lsmt.dh
+        dh = self.lstm.dh
         return dh
 
     def generate(self, h, start_id, sample_size):

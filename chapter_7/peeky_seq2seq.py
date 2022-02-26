@@ -1,7 +1,8 @@
 import os, sys
 sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 import numpy as np
-from common.time_layers import TimeEmbedding, TimeLSTM, TimeAffine
+from common.time_layers import TimeEmbedding, TimeLSTM, TimeAffine, TimeSoftmaxWithLoss
+from seq2seq import Seq2Seq, Encoder
 
 
 class PeekyDecoder:
@@ -76,3 +77,15 @@ class PeekyDecoder:
             sampled.append(char_id)
 
         return sampled
+
+
+class PeekySeq2seq(Seq2Seq):
+    def __init__(self, vocab_size, wordvec_size, hidden_size):
+        V, D, H = vocab_size, wordvec_size, hidden_size
+        self.encoder = Encoder(V, D, H)
+        self.decoder = PeekyDecoder(V, D, H)
+        self.softmax = TimeSoftmaxWithLoss()
+
+        self.params = self.encoder.params + self.decoder.params
+        self.grads = self.encoder.grads + self.decoder.grads
+

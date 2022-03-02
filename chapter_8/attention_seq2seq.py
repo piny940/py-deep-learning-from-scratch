@@ -1,9 +1,9 @@
 import os, sys
 sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 import numpy as np
-from chapter_7.seq2seq import Encoder
+from chapter_7.seq2seq import Encoder, Seq2Seq
 from chapter_8.attention_layer import TimeAttention
-from common.time_layers import TimeAffine, TimeEmbedding, TimeLSTM
+from common.time_layers import TimeAffine, TimeEmbedding, TimeLSTM, TimeSoftmaxWithLoss
 
 
 class AttentionEncoder(Encoder):
@@ -87,3 +87,14 @@ class AttentionDecoder:
             sampled.append(sample_id)
 
         return sampled
+
+
+class AttentionSeq2Seq(Seq2Seq):
+    def __init__(self, vocab_size, wordvec_size, hidden_size):
+        args = vocab_size, wordvec_size, hidden_size
+        self.encoder = AttentionEncoder(*args)
+        self.decoder = AttentionDecoder(*args)
+        self.softmax = TimeSoftmaxWithLoss()
+        
+        self.params = self.encoder.params + self.decoder.params
+        self.grads = self.encoder.grads + self.decoder.grads
